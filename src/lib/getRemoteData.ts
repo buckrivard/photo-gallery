@@ -1,24 +1,17 @@
 import { getItemFromCache, setItemInCache } from "./cache";
 
-export const getRemoteData = async (url: string, setResult, setError) => {
+export const getRemoteData = async (url: string) => {
   const cached = getItemFromCache(url);
 
   // set result from cache
   if (cached) {
-    setResult(cached)
-    return;
+    return cached;
   }
 
-  try {
-    const res = await fetch(url);
-    const json = await res.json();
-    
-    setResult(json);
-    setItemInCache(url, json);
-  } catch (e) {
-    setError({
-      original: e,
-      message: e.message,
-    });
-  }
+  const res = await fetch(url);
+  const json = await res.json();
+
+  setItemInCache(url, json);
+
+  return json;
 }

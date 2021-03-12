@@ -10,7 +10,18 @@ function useFetch<T> (url: string): FetchResult<T> {
   const [error, setError] = useState<FetchError>(null);
 
   useEffect(() => {
-    getRemoteData(url, setResult, setError);
+    (async () => {
+      try {
+        const result = await getRemoteData(url);
+
+        setResult(result);
+      } catch (e) {
+        setError({
+          original: e,
+          message: e.message,
+        });
+      }
+    })();
   }, [url]);
 
   return [loading, error, result];
