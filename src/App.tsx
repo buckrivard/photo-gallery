@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import Gallery from './components/Gallery';
 
 function App() {
