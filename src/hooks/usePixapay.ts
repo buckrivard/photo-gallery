@@ -10,7 +10,7 @@ interface IImagesResponse {
 
 const initialImages = [];
 
-const imagesURL = `https://pixabay.com/api/?key=20628720-47ffd2b9e1ea0c87ba90e8535&q=${encodeURIComponent('pigs')}`;
+const imagesURL = `https://pixabay.com/api/?key=20628720-47ffd2b9e1ea0c87ba90e8535&orientation=horizontal`;
 
 const usePixabay = (): RemoteImages => {
 
