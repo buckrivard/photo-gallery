@@ -3,6 +3,7 @@
 export interface IImage {
   url: string;
   caption: string;
+  height: number;
 }
 export type Loading = boolean;
 export type FetchError = {
@@ -13,5 +14,5 @@ export type FetchError = {
 export type Images = IImage[];
 
 export interface IGalleryProps {
-  images: Images;
+  dots: boolean | JSX.Element;
 }

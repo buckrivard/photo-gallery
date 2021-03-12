@@ -4,7 +4,7 @@ import Gallery from './components/Gallery';
 function App() {
   return (
     <div className="App">
-      <Gallery />
+      <Gallery dots={true} />
     </div>
   );
 }

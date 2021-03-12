@@ -13,7 +13,7 @@
   }
 }
 
-$breakpoint-tablet: 768px;
+$breakpoint-mobile: 480px;
 
 .App-header {
   background-color: #282c34;
@@ -41,27 +41,35 @@ $breakpoint-tablet: 768px;
   margin: auto;
 }
 
-.image-container {
-  position: relative;
-  width: 50%;
-  margin: auto;
-
-  @media screen and (max-width: $breakpoint-tablet) {
-    width: 100%;
-  }
+.frame {
+  display: flex;
+  align-items: center;
 
   .image {
     width: 100%;
   }
-  .caption {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    max-width: max-content;
-    background-color: #d3d3d3b8;
-    padding: 1% 5%;
+
+  // don't block image with caption on small screens
+  @media screen and (min-width: $breakpoint-mobile) {
+    .image-container {
+      position: relative;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+
+      .caption {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        padding: 5px 20px;
+        max-width: max-content;
+        background-color: #d3d3d3b8;
+        color: white;
+        text-shadow: 1px 1px 3px black;
+      }
+    }
   }
 }
 
