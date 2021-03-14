@@ -44,9 +44,14 @@ $breakpoint-mobile: 480px;
 .frame {
   display: flex;
   align-items: center;
+  justify-content: center;
 
   .image {
     width: 100%;
+  }
+
+  .image-components-wrapper {
+    position: relative;
   }
 
   // don't block image with caption on small screens
@@ -71,6 +76,11 @@ $breakpoint-mobile: 480px;
       }
     }
   }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
 }
 
 @keyframes App-logo-spin {

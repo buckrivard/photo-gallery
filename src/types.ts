@@ -13,6 +13,10 @@ export type FetchError = {
 
 export type Images = IImage[];
 
+export type Sequencer = [number, VoidFunction, VoidFunction];
+
+export type SequenceGetter = (startIx: number, endEx: number) => Sequencer;
+
 export interface IGalleryProps {
   dots: boolean | JSX.Element;
 }

@@ -1,5 +1,6 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent } from "react";
 import Loader from "react-loader-spinner";
+import useCarousel from "../../hooks/useCarousel";
 import useImages from "../../hooks/useImages";
 import { IGalleryProps } from "../../types";
 import ErrorModal from "../ErrorModal";
@@ -15,51 +16,31 @@ const Dots = ({ dotsCount, currentDotIx }) => {
   })}</div>;
 }
 
-const GalleryUI = ({ currentImage, frameHeight, dots }) => {
+const GalleryUI = ({ currentImage, frameHeight, dots, next, prev }) => {
   return (<>
     <div className="frame" style={{minHeight: `${frameHeight}px`}}>
-      <Image {...currentImage} />
+      <div className="image-components-wrapper">
+        <Image {...currentImage} />
+      </div>
     </div>
-    {dots}
+    <div className="controls">
+      <button className='btn prev-btn' onClick={prev}>{'<'}</button>
+      {dots}
+      <button className='btn next-btn' onClick={next}>{'>'}</button>
+    </div>
   </>);
 };
 
 const Gallery: FunctionComponent<IGalleryProps> = ({ dots = true }) => {
   const [loading, error, images] = useImages();
+  const imagesCount = images.length;
 
   // calculate frame height so controls cant jump around on users
   const maxImageHeight = Math.max(...images.map((img) => img.height)) + 10;
 
-  const [currentImageIx, setCurrentImageIx] = useState(0);
-  const currentImage = images[currentImageIx];
-  const imagesCount = images.length;
+  const [currentImageIx, next, previous] = useCarousel(0, imagesCount);
   
-  const showNextImage = () => {
-    setCurrentImageIx((curr) => {
-      return (curr + 1) % imagesCount;
-    });
-  }
-
-  const showPrevImage = () => {
-    setCurrentImageIx((curr) => (curr - 1 + imagesCount) % imagesCount);
-  };
-
-  useEffect(() => {
-    const listener = ev => {
-      if (ev.key === 'ArrowLeft') {
-        showPrevImage();
-      } else if (ev.key === 'ArrowRight') {
-        showNextImage();
-      }
-    }
-    document.addEventListener('keyup', listener);
-
-    return () => {
-      return document.removeEventListener('keyup', listener);
-    };
-  // ignore exhaustive-deps to declaratively update func definitions
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imagesCount]);
+  const currentImage = images[currentImageIx];
 
   const loadingComponent = loading && <Loader type="TailSpin" />;
   const errorComponent = !!error && <ErrorModal message={error.message} />;
@@ -67,7 +48,7 @@ const Gallery: FunctionComponent<IGalleryProps> = ({ dots = true }) => {
 
   return (
     <SuspenseComponent loading={loadingComponent} error={errorComponent}>
-      <GalleryUI currentImage={currentImage} frameHeight={maxImageHeight} dots={dotsComponent} />
+      <GalleryUI currentImage={currentImage} frameHeight={maxImageHeight} dots={dotsComponent} next={next} prev={previous} />
     </SuspenseComponent>
   );
 }
