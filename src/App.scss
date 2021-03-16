@@ -74,6 +74,11 @@ $breakpoint-tablet: 768px;
         transform: scale(0.5);
         transform-origin: left;
         box-shadow: none;
+        mask-image: linear-gradient(
+          to left,
+          rgba(0, 0, 0, 1),
+          rgba(0, 0, 0, 0)
+        );
         -webkit-mask-image: linear-gradient(
           to left,
           rgba(0, 0, 0, 1),
@@ -90,6 +95,11 @@ $breakpoint-tablet: 768px;
         transform: scale(0.5);
         transform-origin: left;
         box-shadow: none;
+        mask-image: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 1),
+          rgba(0, 0, 0, 0)
+        );
         -webkit-mask-image: linear-gradient(
           to right,
           rgba(0, 0, 0, 1),
