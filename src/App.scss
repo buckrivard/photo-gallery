@@ -49,6 +49,7 @@ $breakpoint-tablet: 768px;
   justify-content: center;
   margin: auto;
   padding: 50px;
+  touch-action: pan-y;
 
   @media (max-width: $breakpoint-mobile) {
     padding: 15px;
