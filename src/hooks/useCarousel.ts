@@ -1,9 +1,16 @@
 import { useEffect } from "react";
-import { SequenceGetter } from "../types";
+import { SwipeableHandlers, useSwipeable } from "react-swipeable";
 import useSequencer from "./useSequencer";
 
-const useCarousel: SequenceGetter = (initialIx, maxIx) => {
+type Carousel = (initialIx: number, maxIx: number) => [number, React.Dispatch<React.SetStateAction<number>>, React.Dispatch<React.SetStateAction<number>>, SwipeableHandlers]
+
+const useCarousel: Carousel = (initialIx, maxIx) => {
   const [currentIx, next, prev] = useSequencer(initialIx, maxIx);
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: prev,
+    onSwipedRight: next,
+  });
 
   useEffect(() => {
     const listener = ev => {
@@ -22,7 +29,7 @@ const useCarousel: SequenceGetter = (initialIx, maxIx) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maxIx]);
 
-  return [currentIx, next, prev];
+  return [currentIx, next, prev, swipeHandlers];
 };
 
 export default useCarousel;

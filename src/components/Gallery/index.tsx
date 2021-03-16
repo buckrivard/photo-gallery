@@ -6,7 +6,6 @@ import { IGalleryProps } from "../../types";
 import ErrorModal from "../ErrorModal";
 import Image from "../Image";
 import SuspenseComponent from "../Suspense";
-import {useSwipeable} from "react-swipeable";
 import Dots from "../Dots";
 import Button from "../Button";
 
@@ -48,13 +47,15 @@ const GalleryUI = ({ images, frameHeight, dots, next, prev, swipeHandlers = {} }
 };
 
 const Gallery: FunctionComponent<IGalleryProps> = ({ dots = true }) => {
+  // fetch images with possible fetch states
   const [loading, error, images] = useImages();
   const imagesCount = images.length;
 
   // calculate frame height so controls cant jump around on users
   const maxImageHeight = Math.max(...images.map((img) => img.height)) + 10;
 
-  const [currentImageIx, next, previous] = useCarousel(0, imagesCount);
+  // hide side-effects and key bindings
+  const [currentImageIx, next, previous, swipeHandlers] = useCarousel(0, imagesCount);
   
   const prevImage = images[currentImageIx - 1] || images[images.length - 1];
   const currentImage = images[currentImageIx];
@@ -64,10 +65,7 @@ const Gallery: FunctionComponent<IGalleryProps> = ({ dots = true }) => {
   const errorComponent = !!error && <ErrorModal message={error.message} />;
   const dotsComponent = dots && <Dots dotsCount={imagesCount} currentDotIx={currentImageIx} />;
 
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: previous,
-    onSwipedRight: next,
-  });
+
 
   return (
     <SuspenseComponent loading={loadingComponent} error={errorComponent}>
