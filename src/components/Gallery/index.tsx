@@ -16,11 +16,13 @@ const Dots = ({ dotsCount, currentDotIx }) => {
   })}</div>;
 }
 
-const GalleryUI = ({ currentImage, frameHeight, dots, next, prev }) => {
+const GalleryUI = ({ currentImage, prevImage, nextImage, frameHeight, dots, next, prev }) => {
   return (<>
     <div className="frame" style={{minHeight: `${frameHeight}px`}}>
-      <div className="image-components-wrapper">
+      <div className="slider">
+        <Image {...prevImage} hideCaption={true} />
         <Image {...currentImage} />
+        <Image {...nextImage} hideCaption={true} />
       </div>
     </div>
     <div className="controls">
@@ -40,7 +42,9 @@ const Gallery: FunctionComponent<IGalleryProps> = ({ dots = true }) => {
 
   const [currentImageIx, next, previous] = useCarousel(0, imagesCount);
   
+  const prevImage = images[currentImageIx - 1] || images[images.length - 1];
   const currentImage = images[currentImageIx];
+  const nextImage = images[currentImageIx + 1] || images[0];
 
   const loadingComponent = loading && <Loader type="TailSpin" />;
   const errorComponent = !!error && <ErrorModal message={error.message} />;
@@ -48,7 +52,15 @@ const Gallery: FunctionComponent<IGalleryProps> = ({ dots = true }) => {
 
   return (
     <SuspenseComponent loading={loadingComponent} error={errorComponent}>
-      <GalleryUI currentImage={currentImage} frameHeight={maxImageHeight} dots={dotsComponent} next={next} prev={previous} />
+      <GalleryUI
+        prevImage={prevImage}
+        currentImage={currentImage} 
+        nextImage={nextImage}
+        frameHeight={maxImageHeight} 
+        dots={dotsComponent} 
+        next={next} 
+        prev={previous} 
+      />
     </SuspenseComponent>
   );
 }
