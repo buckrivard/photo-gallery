@@ -8,12 +8,12 @@ type RemoteImages = [Loading, FetchError, Images];
 const initialImages = [];
 
 
+// hide image API calls behind simple useImages abstraction for ease of swapping / configuring data sources
 const useImages = (preload = true): RemoteImages => {
 
-  // hide pixabay calls behind simple useImages abstraction for ease of swapping data sources
   const [loading, error, images = initialImages] = usePixabay();
 
-  // preloads images, as desired
+  // neat little trick to preload images, as desired
   useEffect(() => {
     if (preload && images.length) {
       images.forEach((img) => {

@@ -10,7 +10,5 @@ export const getItemFromCache = (key) => {
   }
 };
 export const setItemInCache = (key, item) => {
-
   cache[key] = item;
-
 };

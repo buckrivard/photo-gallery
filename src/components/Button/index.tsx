@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react";
 
 interface IButtonProps {
-  clickAction: () => any;
-  classes: string;
+  clickAction: () => void;
+  classes?: string;
 }
 
-const Button: FunctionComponent<IButtonProps> = ({ clickAction, classes, children }) => {
+const Button: FunctionComponent<IButtonProps> = ({ clickAction, classes = '', children }) => {
   return (
     <button className={`${classes} btn`} onClick={clickAction}>
       {children}

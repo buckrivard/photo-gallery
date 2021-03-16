@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SequenceGetter } from "../types";
 
+// creates loopable "sequence" of indexes
 const useSequencer: SequenceGetter = (initialIx: number, maxIx: number) => {
   const [currentImageIx, setCurrentImageIx] = useState(initialIx);
 

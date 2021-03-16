@@ -3,7 +3,9 @@
 export interface IImage {
   url: string;
   caption: string;
-  height: number;
+  meta: {
+    height: number;
+  };
 }
 export type Loading = boolean;
 export type FetchError = {

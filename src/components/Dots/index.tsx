@@ -6,11 +6,16 @@ interface IDotsProps {
 }
 
 const Dots: FunctionComponent<IDotsProps> = ({ dotsCount, currentDotIx }) => {
-  return <div>{Array.from(Array(dotsCount).keys()).map((ix) => {
-    const classes = `${currentDotIx === ix ? 'dot current' : 'dot'}`;
+  const dots = Array.from(Array(dotsCount).keys());
+  return (
+    <div>
+      {dots.map((ix) => {
+        const classes = `${currentDotIx === ix ? 'dot current' : 'dot'}`;
 
-    return <span className={classes} key={ix}>•</span>
-  })}</div>;
+        return <span className={classes} key={ix}>•</span>
+      })}
+    </div>
+  );
 };
 
 export default Dots;
