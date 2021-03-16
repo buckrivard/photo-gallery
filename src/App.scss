@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  overflow: hidden;
 }
 
 $breakpoint-mobile: 480px;
@@ -20,6 +19,24 @@ $breakpoint-tablet: 768px;
 .controls {
   display: flex;
   justify-content: center;
+
+  .dot {
+    font-size: xx-large;
+
+    &.current {
+      color: lightgray;
+    }
+  }
+
+  .btn {
+    background-color: transparent;
+    border: none;
+
+    svg {
+      padding-top: 8px;
+      width: 20px;
+    }
+  }
 }
 
 .frame {
@@ -89,8 +106,6 @@ $breakpoint-tablet: 768px;
       }
 
       @media screen and (max-width: $breakpoint-tablet) {
-        display: block;
-
         img {
           max-width: 100%;
           height: auto;

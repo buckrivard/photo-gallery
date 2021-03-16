@@ -12,7 +12,9 @@ import SuspenseComponent from "../Suspense";
 
 const Dots = ({ dotsCount, currentDotIx }) => {
   return <div>{Array.from(Array(dotsCount).keys()).map((ix) => {
-    return <span key={ix}>{ix === currentDotIx ? '*' : '•'}</span>
+    const classes = `${currentDotIx === ix ? 'dot current' : 'dot'}`;
+
+    return <span className={classes} key={ix}>•</span>
   })}</div>;
 }
 
@@ -20,15 +22,23 @@ const GalleryUI = ({ currentImage, prevImage, nextImage, frameHeight, dots, next
   return (<>
     <div className="frame" style={{minHeight: `${frameHeight}px`}}>
       <div className="slider">
-        <Image {...prevImage} hideCaption={true} />
+        <Image {...prevImage} hideCaption={true} clickAction={prev} />
         <Image {...currentImage} />
-        <Image {...nextImage} hideCaption={true} />
+        <Image {...nextImage} hideCaption={true} clickAction={next} />
       </div>
     </div>
     <div className="controls">
-      <button className='btn prev-btn' onClick={prev}>{'<'}</button>
+      <button className='btn prev-btn' onClick={prev}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+        </svg>
+      </button>
       {dots}
-      <button className='btn next-btn' onClick={next}>{'>'}</button>
+      <button className='btn next-btn' onClick={next}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </button>
     </div>
   </>);
 };

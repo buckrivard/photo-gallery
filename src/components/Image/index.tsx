@@ -3,12 +3,12 @@ import { IImage } from "../../types";
 
 interface IImageProps extends IImage {
   hideCaption: boolean;
-  [key: string]: any;
+  clickAction: () => void;
 }
 
-const Image: FunctionComponent<IImageProps> = ({ caption, url, hideCaption }) => {
-  return <div className="image-container">
-    <img className="image" src={url} />
+const Image: FunctionComponent<IImageProps> = ({ caption, url, hideCaption, clickAction }) => {
+  return <div className="image-container" onClick={clickAction}>
+    <img className="image" src={url} alt={caption} />
     {!hideCaption && <div className="caption">{caption}</div>}
   </div>
 };
