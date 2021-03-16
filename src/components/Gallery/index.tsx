@@ -1,5 +1,4 @@
 import { FunctionComponent } from "react";
-import Loader from "react-loader-spinner";
 import useCarousel from "../../hooks/useCarousel";
 import useImages from "../../hooks/useImages";
 import { IGalleryProps } from "../../types";
@@ -8,6 +7,7 @@ import Image from "../Image";
 import SuspenseComponent from "../Suspense";
 import Dots from "../Dots";
 import Button from "../Button";
+import LoadingSpinner from "../LoadingSpinner";
 
 const GalleryUI = ({ images, frameHeight, dots, next, prev, swipeHandlers = {} }) => {
   const [prevImage, currentImage, nextImage] = images;
@@ -61,7 +61,7 @@ const Gallery: FunctionComponent<IGalleryProps> = ({ dots = true }) => {
   const currentImage = images[currentImageIx];
   const nextImage = images[currentImageIx + 1] || images[0];
 
-  const loadingComponent = loading && <Loader type="TailSpin" />;
+  const loadingComponent = loading && <LoadingSpinner />;
   const errorComponent = !!error && <ErrorModal message={error.message} />;
   const dotsComponent = dots && <Dots dotsCount={imagesCount} currentDotIx={currentImageIx} />;
 
